@@ -56,3 +56,8 @@
 		background-image: linear-gradient(45deg, #be5af3, #5df);
 	}
 }
+
+body[data-theme='dark'] .bottom input {
+	background-color: #25273d;
+	color: #c8cbe7;
+}

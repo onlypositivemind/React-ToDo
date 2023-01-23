@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ThemeSwitcher } from 'components';
 import { ITodo, ITodoActions } from 'types';
 import s from './TodoHeader.module.css';
 
@@ -40,7 +41,7 @@ const TodoHeader: React.FC<TodoHeaderProps> = ({ todos, setTodos }) => {
 		<div className={s.wrapper}>
 			<div className={s.top}>
 				<h1>Todo</h1>
-				<p>ThemeSwitcher</p>
+				<ThemeSwitcher />
 			</div>
 			<div className={s.bottom}>
 				<input

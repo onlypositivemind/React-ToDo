@@ -1,53 +1,37 @@
 .item {
 	padding: 20px;
 	width: 100%;
-	display: flex;
-	align-items: center;
 	border-bottom: 1px solid #e3e4f1;
 }
 
-.realCheckbox {
+.check {
+	padding-left: 48px;
+	display: flex;
+	align-items: center;
+	max-width: fit-content;
+	cursor: pointer;
+}
+
+.input {
+	position: absolute;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.checkBox {
+	position: absolute;
+	margin-left: -48px;
 	width: 24px;
 	height: 24px;
 	border-radius: 50%;
 	overflow: hidden;
-	z-index: 1;
-	opacity: 0;
-	position: absolute;
-	cursor: pointer;
-}
-
-.customCheckbox {
-	margin-right: 24px;
-
-	width: 24px;
-	height: 24px;
-	border-radius: 50%;
 	border: 1px solid #979797;
-	cursor: pointer;
-	position: relative;
 	background-color: #fff;
 }
 
-.customCheckbox:before {
-	content: '';
-	display: inline-block;
-	width: 11px;
-	height: 9px;
-	background: url('../../assets/completed.svg') center / contain no-repeat;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%) scale(0);
-	transition: 0.2s ease-in-out;
-}
-
-.realCheckbox:checked + .customCheckbox:before {
-	transform: translate(-50%, -50%) scale(1);
-}
-
-.realCheckbox:checked + .customCheckbox {
-	background-image: linear-gradient(45deg, #5df, #be5af3);
+.input:checked + .checkBox {
+	background: url('../../assets/completed.svg') center no-repeat, linear-gradient(45deg, #5df, #be5af3);
 }
 
 .completed {
@@ -55,6 +39,6 @@
 	text-decoration: line-through;
 }
 
-.item button {
-	margin-left: auto;
+body[data-theme='dark'] .checkBox {
+	background-color: #25273d;
 }

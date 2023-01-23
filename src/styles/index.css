@@ -28,3 +28,11 @@ body {
 	max-width: 630px;
 	position: relative;
 }
+
+body[data-theme='dark'] {
+	background-color: #171823;
+}
+
+body[data-theme='dark'] #root:before {
+	background: url('../assets/bgdark.jpg') center / cover no-repeat;
+}

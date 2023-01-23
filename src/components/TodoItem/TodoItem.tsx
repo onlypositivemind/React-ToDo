@@ -8,14 +8,16 @@ const TodoItem: FC<TodoItemProps> = ({ id, completed, title, toggleTodo }) => {
 	
 	return (
 		<li className={s.item}>
-			<input
-				className={s.realCheckbox}
-				type="checkbox"
-				checked={completed}
-				onChange={() => toggleTodo(id)}
-			/>
-			<div className={s.customCheckbox} />
-			<p className={completed ? s.completed : ''}>{title}</p>
+			<label className={completed ? `${s.completed} ${s.check}` : s.check}>
+				<input
+					className={s.input}
+					type="checkbox"
+					checked={completed}
+					onChange={() => toggleTodo(id)}
+				/>
+				<span className={s.checkBox} />
+				{title}
+			</label>
 		</li>
 	);
 };

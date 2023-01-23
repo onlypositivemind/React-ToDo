@@ -10,3 +10,5 @@ export interface ITodoActions {
 	toggleTodo: (id: number) => void;
 	setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>;
 }
+
+export type TodoFilter = 'all' | 'active' | 'completed';

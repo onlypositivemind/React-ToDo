@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TodoItem } from 'components';
-import { ITodo, ITodoActions } from 'types';
+import { ITodo, ITodoActions, TodoFilter } from 'types';
 import s from './TodoList.module.css';
 
 interface TodoListProps extends ITodoActions {
@@ -8,15 +8,37 @@ interface TodoListProps extends ITodoActions {
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
+	const [filter, setFilter] = useState<TodoFilter>('all');
+	const [filteredTodos, setFilteredTodos] = useState<ITodo[]>(todos);
 	
 	const deleteCompletedTodos = () => {
 		setTodos(todos.filter(todo => !todo.completed));
 	};
 	
+	const handleFilter = () => {
+		switch (filter) {
+			case 'all':
+				setFilteredTodos(todos);
+				return;
+			
+			case 'active':
+				setFilteredTodos(todos.filter(todo => !todo.completed));
+				return;
+			
+			case 'completed':
+				setFilteredTodos(todos.filter(todo => todo.completed));
+				return;
+		}
+	};
+	
+	useEffect(() => {
+		handleFilter();
+	}, [todos, filter]);
+	
 	return (
 		<>
 			<ul className={s.list}>
-				{todos.map(todo =>
+				{filteredTodos.map(todo =>
 					<TodoItem
 						key={todo.id}
 						{...todo}
@@ -27,9 +49,24 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
 					<li className={s.info}>
 						<p>{todos.filter(todo => !todo.completed).length} items left</p>
 						<ul className={s.filter}>
-							<li className={s.active}>All</li>
-							<li>Active</li>
-							<li>Completed</li>
+							<li
+								onClick={() => setFilter('all')}
+								className={filter === 'all' ? s.active : ''}
+							>
+								All
+							</li>
+							<li
+								onClick={() => setFilter('active')}
+								className={filter === 'active' ? s.active : ''}
+							>
+								Active
+							</li>
+							<li
+								onClick={() => setFilter('completed')}
+								className={filter === 'completed' ? s.active : ''}
+							>
+								Completed
+							</li>
 						</ul>
 						<p className={s.clear} onClick={deleteCompletedTodos}>Clear completed</p>
 					</li>

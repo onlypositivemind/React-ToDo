@@ -10,7 +10,7 @@
 	background: #fff;
 	border-radius: 5px;
 	overflow: hidden;
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .info {
@@ -37,4 +37,14 @@
 	.clear:hover {
 		color: #3a7cfd;
 	}
+}
+
+body[data-theme='dark'] .list {
+	background-color: #25273d;
+	color: #c8cbe7;
+}
+
+body[data-theme='dark'] .info {
+	background-color: #25273d;
+	color: #c8cbe7;
 }
