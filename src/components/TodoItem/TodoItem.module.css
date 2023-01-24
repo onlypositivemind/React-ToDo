@@ -6,28 +6,32 @@
 
 .check {
 	padding-left: 48px;
-	display: flex;
-	align-items: center;
-	max-width: fit-content;
+	display: block;
+	word-wrap: break-word;
+	position: relative;
 	cursor: pointer;
 }
 
-.input {
+.input, .checkBox {
 	position: absolute;
+	left: 0;
+}
+
+.input {
+	top: 0;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 }
 
 .checkBox {
-	position: absolute;
-	margin-left: -48px;
+	top: 50%;
+	transform: translateY(-50%);
 	width: 24px;
 	height: 24px;
 	border-radius: 50%;
 	overflow: hidden;
 	border: 1px solid #979797;
-	background-color: #fff;
 }
 
 .input:checked + .checkBox {
