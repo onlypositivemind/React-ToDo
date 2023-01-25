@@ -11,4 +11,4 @@ export interface ITodoActions {
 	setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>;
 }
 
-export type TodoFilter = 'all' | 'active' | 'completed';
+export type TodoFilter = 'All' | 'Active' | 'Completed';
