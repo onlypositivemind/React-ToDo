@@ -1,10 +1,9 @@
-.item {
-	padding: 20px;
-	width: 100%;
-	border-bottom: 1px solid #e3e4f1;
+body[data-theme='dark'] .checkBox {
+	background-color: #25273d;
 }
 
 .check {
+	margin-right: 25px;
 	padding-left: 48px;
 	display: block;
 	word-wrap: break-word;
@@ -43,6 +42,17 @@
 	text-decoration: line-through;
 }
 
-body[data-theme='dark'] .checkBox {
-	background-color: #25273d;
+.icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: -25px;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+}
+
+@media (any-hover: hover) {
+	.check:hover .icon, .icon:hover .icon {
+		opacity: 1;
+	}
 }

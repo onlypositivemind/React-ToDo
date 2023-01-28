@@ -23,7 +23,15 @@ const TodoHeader: React.FC<TodoHeaderProps> = ({ todos, setTodos }) => {
 	
 	const addTodo = () => {
 		if (value.trim()) {
-			setTodos([...todos, { id: Date.now(), title: value, completed: false }]);
+			setTodos([
+				...todos,
+				{
+					id: Date.now(),
+					order: todos.length + 1,
+					title: value,
+					completed: false
+				}
+			]);
 			setValue('');
 		} else {
 			setValue('');

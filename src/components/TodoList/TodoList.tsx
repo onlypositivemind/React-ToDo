@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TodoItem } from 'components';
 import { ITodo, ITodoActions, TodoFilter } from 'types';
+import { getNumberedArr } from 'helper';
 import s from './TodoList.module.css';
 
 const filterList: TodoFilter[] = ['All', 'Active', 'Completed'];
@@ -9,12 +10,16 @@ interface TodoListProps extends ITodoActions {
 	todos: ITodo[];
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
+type DragHandler = (e: React.DragEvent<HTMLLIElement>, todo: ITodo) => void
+
+const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo, deleteTodo }) => {
 	const [filter, setFilter] = useState<TodoFilter>('All');
 	const [filteredTodos, setFilteredTodos] = useState<ITodo[]>(todos);
+	const [currentTodo, setCurrentTodo] = useState<ITodo | null>(null);
 	
 	const deleteCompletedTodos = () => {
-		setTodos(todos.filter(todo => !todo.completed));
+		const arr = todos.filter(todo => !todo.completed);
+		setTodos(getNumberedArr(arr));
 	};
 	
 	const handleFilter = () => {
@@ -33,6 +38,27 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
 		}
 	};
 	
+	const handleDragStart: DragHandler = (e, todo) => {
+		setCurrentTodo(todo);
+	};
+	
+	const handleDragOver: React.DragEventHandler<HTMLLIElement> = (e) => {
+		e.preventDefault();
+	};
+	
+	const handleDrop: DragHandler = (e, todo) => {
+		e.preventDefault();
+		setTodos(todos.map(t => {
+			if (t.id === todo.id) {
+				return { ...t, order: currentTodo!.order };
+			}
+			if (t.id === currentTodo!.id) {
+				return { ...t, order: todo.order };
+			}
+			return t;
+		}));
+	};
+	
 	useEffect(() => {
 		handleFilter();
 	}, [todos, filter]);
@@ -40,12 +66,23 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
 	return (
 		<>
 			<ul className={s.list}>
-				{filteredTodos.map(todo =>
-					<TodoItem
+				{filteredTodos
+				.sort((a, b) => a.order - b.order)
+				.map(todo =>
+					<li
+						className={s.item}
 						key={todo.id}
-						{...todo}
-						toggleTodo={toggleTodo}
-					/>
+						draggable
+						onDragStart={(e) => handleDragStart(e, todo)}
+						onDragOver={(e) => handleDragOver(e)}
+						onDrop={(e) => handleDrop(e, todo)}
+					>
+						<TodoItem
+							{...todo}
+							toggleTodo={toggleTodo}
+							deleteTodo={deleteTodo}
+						/>
+					</li>
 				)}
 				{todos.length > 0 &&
 					<li className={s.info}>
@@ -53,6 +90,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
 						<ul className={s.filter}>
 							{filterList.map(str =>
 								<li
+									key={str}
 									className={filter === str ? s.active : undefined}
 									onClick={() => setFilter(str)}
 								>
@@ -64,6 +102,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, setTodos, toggleTodo }) => {
 					</li>
 				}
 			</ul>
+			{todos.length > 0 && <p className={s.subinfo}>Drag and drop to reorder list</p>}
 		</>
 	);
 };

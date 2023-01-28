@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { TodoHeader, TodoList } from 'components';
 import { ITodo } from 'types';
-
-const defaultTodos = (): ITodo[] => {
-	const lsTodos = localStorage.getItem('todos');
-	if (lsTodos) {
-		return JSON.parse(lsTodos);
-	} else {
-		return [];
-	}
-};
+import { loadLocalStorageItem, saveLocalStorageItem, getNumberedArr } from 'helper';
 
 const App: React.FC = () => {
-	const [todos, setTodos] = useState<ITodo[]>(defaultTodos());
+	const [todos, setTodos] = useState<ITodo[]>(loadLocalStorageItem('todos') || []);
 	
 	const toggleTodo = (id: number) => {
 		setTodos(todos.map(todo => {
@@ -24,14 +16,19 @@ const App: React.FC = () => {
 		}));
 	};
 	
+	const deleteTodo = (id: number) => {
+		const arr = todos.filter(todo => todo.id !== id);
+		setTodos(getNumberedArr(arr));
+	};
+	
 	useEffect(() => {
-		localStorage.setItem('todos', JSON.stringify(todos));
+		saveLocalStorageItem('todos', JSON.stringify(todos));
 	}, [todos]);
 	
 	return (
 		<div className="app">
 			<TodoHeader todos={todos} setTodos={setTodos} />
-			<TodoList todos={todos} setTodos={setTodos} toggleTodo={toggleTodo} />
+			<TodoList todos={todos} setTodos={setTodos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
 		</div>
 	);
 };

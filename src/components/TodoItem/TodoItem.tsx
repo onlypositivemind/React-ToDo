@@ -1,13 +1,14 @@
-import { FC } from 'react';
+import React from 'react';
 import { ITodo, ITodoActions } from 'types';
+import { ReactComponent as DeleteIcon } from 'assets/delete.svg';
 import s from './TodoItem.module.css';
 
-interface TodoItemProps extends ITodo, Pick<ITodoActions, 'toggleTodo'> {}
+interface TodoItemProps extends ITodo, Omit<ITodoActions, 'setTodos'> {}
 
-const TodoItem: FC<TodoItemProps> = ({ id, completed, title, toggleTodo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ id, completed, title, toggleTodo, deleteTodo }) => {
 	
 	return (
-		<li className={s.item}>
+		<>
 			<label className={completed ? `${s.completed} ${s.check}` : s.check}>
 				<input
 					className={s.input}
@@ -17,8 +18,9 @@ const TodoItem: FC<TodoItemProps> = ({ id, completed, title, toggleTodo }) => {
 				/>
 				<span className={s.checkBox} />
 				{title}
+				<DeleteIcon className={s.icon} onClick={() => deleteTodo(id)} />
 			</label>
-		</li>
+		</>
 	);
 };
 
