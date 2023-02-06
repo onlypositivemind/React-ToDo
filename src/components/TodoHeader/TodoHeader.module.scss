@@ -1,0 +1,19 @@
+.wrapper {
+	padding-top: 70px;
+}
+
+.left {
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
+	justify-content: space-between;
+	gap: 10px;
+
+	h1 {
+		font-weight: 700;
+		font-size: 40px;
+		text-transform: uppercase;
+		letter-spacing: 15px;
+		color: var(--white);
+	}
+}

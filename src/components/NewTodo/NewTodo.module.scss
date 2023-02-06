@@ -1,0 +1,49 @@
+:global {
+	body[data-theme='light'] {
+		--input-color: var(--black);
+		--input-bg: var(--white);
+	}
+
+	body[data-theme='dark'] {
+		--input-color: var(--gray-100);
+		--input-bg: var(--gray-400);
+	}
+}
+
+.wrapper {
+	margin-bottom: 25px;
+	position: relative;
+
+	input {
+		padding: 10px 66px 10px 5px;
+		width: 100%;
+		height: 64px;
+		border-bottom-left-radius: 10px;
+		border-top-right-radius: 10px;
+		overflow: hidden;
+		color: var(--input-color);
+		background: var(--input-bg);
+
+		&:focus {
+			outline: 2px solid var(--purple);
+		}
+	}
+
+	button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 1;
+		width: 70px;
+		height: 64px;
+		background-image: linear-gradient(45deg, var(--blue), var(--purple));
+		color: transparent;
+		-webkit-background-clip: text;
+	}
+}
+
+@media (any-hover: hover) {
+	.wrapper button:hover {
+		background-image: linear-gradient(45deg, var(--purple), var(--blue));
+	}
+}

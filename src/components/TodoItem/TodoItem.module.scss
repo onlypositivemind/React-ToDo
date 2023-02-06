@@ -1,7 +1,3 @@
-body[data-theme='dark'] .checkBox {
-	background-color: #25273d;
-}
-
 .check {
 	margin-right: 25px;
 	padding-left: 48px;
@@ -30,15 +26,15 @@ body[data-theme='dark'] .checkBox {
 	height: 24px;
 	border-radius: 50%;
 	overflow: hidden;
-	border: 1px solid #979797;
+	border: 1px solid var(--gray-200);
 }
 
 .input:checked + .checkBox {
-	background: url('../../assets/completed.svg') center no-repeat, linear-gradient(45deg, #5df, #be5af3);
+	background: url('../../assets/images/completed.svg') center no-repeat, linear-gradient(45deg, var(--blue), var(--purple));
 }
 
 .completed {
-	color: #d1d2da;
+	color: var(--gray-200);
 	text-decoration: line-through;
 }
 
