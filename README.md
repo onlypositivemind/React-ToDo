@@ -1,6 +1,5 @@
 # To-Do List
 
-___
 ![readme.png](readme.png)
 
 ### Реализовано:
